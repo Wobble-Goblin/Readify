@@ -1,9 +1,12 @@
 import React from "react"
 // import from child stuff
+import BookEntryCard from "../components/BookEntryCard";
 
 function MainContainer() {
     return (
-        <div>Main Container content! </div>
+        <div>
+        <BookEntryCard />
+        </div>
     )
 }
 
