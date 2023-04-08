@@ -1,12 +1,11 @@
 import React from 'react';
 import MainContainer from './containers/MainContainer';
+import Header from './components/Header'; 
 
 function App() {
   return (
-    <div>
-       <p className="text-3xl text-green-700 font-bold mb-5">
-        Welcome!
-      </p>
+    <div className ='app'>
+      <Header/>
       <MainContainer />
     </div>
   )
