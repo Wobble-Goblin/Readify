@@ -4,6 +4,9 @@ import MainContainer from './containers/MainContainer';
 function App() {
   return (
     <div>
+       <p className="text-3xl text-green-700 font-bold mb-5">
+        Welcome!
+      </p>
       <MainContainer />
     </div>
   )
