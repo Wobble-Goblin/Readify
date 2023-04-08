@@ -23,7 +23,7 @@ function BookEntryCard() {
   }
 
   return (
-    <div>
+    <div className='bookEntry'>
     <input type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
     <button onClick={handleClick}>Send</button>
     <PlayerCard />
