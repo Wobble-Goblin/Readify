@@ -13,9 +13,10 @@ router.post('/get-token',
   });
 
 // GET BOOK
-router.get('/get-title',
+  router.get('/get-title',
   controller.getTitle,
   (req, res) => res.status(200).json(res.locals.books))
+
 
 // TEST SAMPLE ONLY ONE ADDRESS FOR EACH REQUEST
 //serve index html

@@ -8,10 +8,13 @@ const controller = {};
 
 // GOOGLE BOOKS API
 controller.getTitle = async (req,res,next) => {
-  const result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${tbd}&key=AIzaSyCXUjqCkxkBUW53n9BRZdQpzmtEb6BwYIk`)
+  //console.log(req.body);
+  const { title } = req.body
+
+  await fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&key=AIzaSyCXUjqCkxkBUW53n9BRZdQpzmtEb6BwYIk`)
     .then(response => response.json())
-      .then(result => {
-        console.log(result);
+    .then(result => {
+        console.log(result.items[0].volumeInfo.title, result.items[0].volumeInfo.description.split(' ').slice(0, 51).filter(word => word.length > 3));
         res.locals.books = result
         return next()
       }

@@ -5,11 +5,17 @@ function BookEntryCard() {
   const [bookName, setBookName] = useState('')
 
   useEffect(() => {
-    ;
+    console.log(bookName);
   })
 
   const handleClick = e => {
-    console.log(bookName);
+    fetch('/api/get-title', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        title: bookName,
+      })
+    });
   }
 
   const handleOnChange = e => {
