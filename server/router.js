@@ -13,7 +13,7 @@ const controller = require('./controller');
   });
 
 // GET BOOK
-router.get('/get-title',
+router.post('/get-title',
 controller.getTitle,
 (req,res) => res.status(200).json(res.locals.books))
 

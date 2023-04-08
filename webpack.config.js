@@ -46,17 +46,17 @@ module.exports = {
   devServer: {
     static: [
       path.join(__dirname, 'client')
-    ]
+    ],
 
      // proxy setting to be included
-    //  proxy: {
-    //     '/api/**': {
-    //         target: 'http://localhost:3000/',
-    //         secure: false,
-    //       },
-    //   },
-    // // fallback to root for other urls
-    // historyApiFallback: true,
+     proxy: {
+        '/api/**': {
+            target: 'http://localhost:3000/',
+            secure: false,
+          },
+      },
+    // fallback to root for other urls
+    historyApiFallback: true,
   },
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
