@@ -1,5 +1,5 @@
 import React from 'react'
-import UserHistoryItem from '../UserHistoryItem';
+import UserHistoryItem from '../components/UserHistoryItem';
 
 function UserHistoryContainer(){
 
@@ -8,10 +8,10 @@ function UserHistoryContainer(){
         historyItems: 
         [
             {bookTitle: 'Das\'s Animals Gang', author: 'Matteo D.', isInstrumental: 'Instrumental Only', playlistLength: '4+ Hours'}, 
-            {bookTitle: 'Dylan is a RegEx Master',  author: 'Jasmine N.', isInstrumental: 'All', playlistLength: '< 1 Hour'}
+            {bookTitle: 'Dylan is a RegEx Master',  author: 'Jasmine N.', isInstrumental: 'All', playlistLength: '< 1 Hour'},
+            {bookTitle: 'Book3',  author: 'author three', isInstrumental: 'Instrumental Only', playlistLength: '< 1 Hour'},
+            {bookTitle: 'Book4',  author: 'Author four', isInstrumental: 'All', playlistLength: '2-4 hours'}
         ]
-
-
     })
 
     // console.log(history.historyItems)
@@ -23,16 +23,16 @@ function UserHistoryContainer(){
                 author={x.author}
                 isInstrumental={x.isInstrumental}
                 playlistLength={x.playlistLength}
-                
                 key={`history-item-${i}`}>
             </UserHistoryItem>
         )
     })
 
-    
-
     return(
-        <div className='UserHistoryContainer'>{historyItemArray}</div>
+        <div className='UserHistoryContainer'>
+            <h2>Previous Playlists</h2>    
+            {historyItemArray}
+        </div>
     )
 }
 
