@@ -1,13 +1,14 @@
 import React from "react"
 import UserHistoryContainer from "./UserHistoryContainer";
 // import from child stuff
+import BookEntryCard from "../components/BookEntryCard";
 
 function MainContainer() {
     return (
-        <div>Main Container content! 
-
-
-            <UserHistoryContainer/></div>
+        <div>
+        <BookEntryCard />
+        <UserHistoryContainer />
+        </div>
     )
 }
 
