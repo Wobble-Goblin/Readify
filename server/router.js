@@ -5,17 +5,21 @@ const controller = require('./controller');
 // GETS SPOTIFY TOKEN
 // get-token creating an access token
 
-  router.post('/get-token',
-  controller.getToken, (err, res, body) => {
-    if (!err && res.statusCode === 200) {
-      const token = body.access_token;
-    }
-  });
+  // router.post('/get-token',
+  // controller.getToken, (err, res, body) => {
+  //   if (!err && res.statusCode === 200) {
+  //     const token = body.access_token;
+  //   }
+  // });
 
 // GET BOOK
 router.post('/get-title',
 controller.getTitle,
-(req,res) => res.status(200).json(res.locals.books))
+controller.getToken,
+controller.createPlaylist,
+//get recommendations,
+//add songs,
+(req,res) => res.status(200).json(res.locals.musicForBooks))
 
 // TEST SAMPLE ONLY ONE ADDRESS FOR EACH REQUEST
 //serve index html
