@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
+const querystring = require('querystring')
 
 const app = express();
 
@@ -12,6 +13,18 @@ app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, './client')));
+
+app.get('/login', (req, res) => {
+
+  
+  res.status(301).redirect('https://accounts.spotify.com/authorize?' + 
+    querystring.stringify({
+      response_type: 'code',
+      client_id: 'dingleboss',
+      redirect_uri: 'localhost:3000/worked'
+    })
+  )
+})
 
 app.use('/api',router);
 

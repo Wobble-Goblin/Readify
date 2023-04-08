@@ -5,7 +5,7 @@ function BookEntryCard() {
   const [bookName, setBookName] = useState('')
 
   useEffect(() => {
-    console.log(bookName);
+    //console.log(bookName);
   })
 
   const handleClick = e => {
