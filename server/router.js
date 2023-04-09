@@ -15,7 +15,7 @@ const controller = require('./controller');
 
 // GET BOOK
 router.post('/get-title',
-controller.getTitle,
+//controller.getTitle,
 controller.getToken,
 controller.createPlaylist,
 //get recommendations,

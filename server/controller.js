@@ -23,8 +23,8 @@ controller.getTitle = async (req,res,next) => {
 //SPOTIFY API GET TOKEN
 controller.getToken = async (req,res,next) => {
   // get-token creating an access token
-  const client_id = '56fce6d540854f16ac1e2fd5661cde9f'; // Your client id
-  const client_secret = '53e52133fcb24e2eaf0d20ee213ea9c2'; // Your secret
+  const client_id = '919322e8de7f4fb299a489a332012dc6'; // Your client id
+  const client_secret = '93cf2067ac524ef38dde1cb09d21394a'; // Your secret
 
   try { 
     const result = await fetch('https://accounts.spotify.com/api/token', { 
@@ -48,14 +48,17 @@ controller.getToken = async (req,res,next) => {
 
  controller.createPlaylist = async (req,res,next) => {
   console.log(res.locals.token);
-  await fetch(`https://api.spotify.com/v1/users/${'matteodite'}/playlists`, {
+  await fetch(`https://api.spotify.com/v1/users/${'dingleboss'}/playlists`, {
     method: 'POST',
-    headers: {"Authorization": `Bearer ${res.locals.token}`},
-    body: {
+    headers: {
+      'Authorization': `Bearer ${res.locals.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
       'name' : 'Test Playlist',
       'description': '',
       'public' : false,
-    }
+    })
   })
     .then(response => response.json())
     .then(result => {
@@ -64,7 +67,7 @@ controller.getToken = async (req,res,next) => {
       }
     )}
 
-
+//Authent
 
 //GET RECOMMENDATION
 //  controller.getRecommendation = async (req,res,next) => {
