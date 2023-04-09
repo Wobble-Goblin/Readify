@@ -27,20 +27,21 @@ module.exports = {
       },
       {
         test: /\.css$/i,
+        include: path.resolve(__dirname, 'client'),
         use: [
-          'style-loader', 'css-loader', 'sass-loader'
+          'style-loader', 'css-loader', 'postcss-loader'
         ],
       },
-    //   {
-    //     test: /\.png|svg|jpg|gif$/,
-    //     use: [
-    //         'file-loader'
-    //     ],
-    //  }, 
-    // {
-    //     test: /\.png|svg|jpg|gif$//,
-    //     type: 'asset/resource'
-    //   }
+      //   {
+      //     test: /\.png|svg|jpg|gif$/,
+      //     use: [
+      //         'file-loader'
+      //     ],
+      //  }, 
+      // {
+      //     test: /\.png|svg|jpg|gif$//,
+      //     type: 'asset/resource'
+      //   }
     ]
   },
   devServer: {
@@ -57,6 +58,7 @@ module.exports = {
       },
     // fallback to root for other urls
     historyApiFallback: true,
+
   },
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
