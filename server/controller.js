@@ -21,28 +21,40 @@ controller.getTitle = async (req,res,next) => {
     )}
 
 //SPOTIFY API GET TOKEN
-controller.getToken = async (req,res,next) => {
-  // get-token creating an access token
-  const client_id = '919322e8de7f4fb299a489a332012dc6'; // Your client id
-  const client_secret = '93cf2067ac524ef38dde1cb09d21394a'; // Your secret
+// controller.getToken = async (req,res,next) => {
+//   // get-token creating an access token
+//   const client_id = '919322e8de7f4fb299a489a332012dc6'; // Your client id
+//   const client_secret = '93cf2067ac524ef38dde1cb09d21394a'; // Your secret
 
-  try { 
-    const result = await fetch('https://accounts.spotify.com/api/token', { 
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
-  })
-  const data = await result.json();
-    res.locals.token = data.access_token;
-    console.log('token', res.locals.token)
-  return next()
-  } catch (err) {
-    console.log("Error in creating location:", JSON.stringify(err));
-    return next("Error:" + JSON.stringify(err));
+//   try { 
+//     const result = await fetch('https://accounts.spotify.com/api/token', { 
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//     },
+//     body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
+//   })
+//   const data = await result.json();
+//     res.locals.token = data.access_token;
+//     console.log('token', res.locals.token)
+//   return next()
+//   } catch (err) {
+//     console.log("Error in creating location:", JSON.stringify(err));
+//     return next("Error:" + JSON.stringify(err));
+//   }
+//  }
+
+controller.getToken = async(req, res, next) => {
+  var scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
+  const params = new URLSearchParams();
+  params.append('response_type', 'code');
+  params.append('client_id', '919322e8de7f4fb299a489a332012dc6'); 
+  params.append('redirect_uri', 'http://localhost:3000/callback') 
+  params.append('scope', scope); // spotify requires URL encoded, not json 
+
+  //var state = generateRandomString(16);
+  res.status(301).set({'Access-Control-Allow-Origin': 'http://localhost:8080'}).redirect('https://accounts.spotify.com/authorize?' + params.toString()) // 301 is HTTP code for redirect, the params get put into the string
   }
- }
 
 //CREATE PLAYLIST
 
@@ -55,9 +67,9 @@ controller.getToken = async (req,res,next) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      'name' : 'Test Playlist',
-      'description': '',
-      'public' : false,
+      name : 'Test Playlist',
+      description : '',
+      public : false,
     })
   })
     .then(response => response.json())
