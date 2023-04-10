@@ -12,7 +12,7 @@ function BookEntryCard() {
   })
 
   const handleClick = e => {
-    fetch('/api/get-playlist', {
+    fetch('/api/get-title', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
