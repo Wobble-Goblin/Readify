@@ -11,6 +11,10 @@ function UserHistoryContainer(){
         ]
     })
 
+    // const handleClick = (e) => {
+    //     console.log(e)
+
+    // }
 
     useEffect(()=> {
         fetch('/history')
@@ -21,7 +25,7 @@ function UserHistoryContainer(){
             data.forEach(x=>{
                 const histObj = {
                     bookTitle: x.title,
-                    playlistId: x.playlistId
+                    playlistId: x.playlistId,
                 }
                 historyArr.push(histObj)
             })
@@ -40,6 +44,8 @@ function UserHistoryContainer(){
         historyItemArray.push(
             <UserHistoryItem 
                 bookTitle={x.bookTitle}
+                playlistId={x.playlistId}
+                //handleClick={x.handleClick}
                 // playlistId={history.playlistId}
                 // author={x.author}
                 // isInstrumental={x.isInstrumental}

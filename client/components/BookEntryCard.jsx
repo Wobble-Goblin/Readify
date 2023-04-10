@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PlayerCard from "./PlayerCard";
 
 function BookEntryCard() {
   const [cardState, setCardState] = useState({
     bookName: '',
-    playlistId: '' //can we have somethin as default to not have "page not"
-  })
-
-  useEffect(() => {
-    //console.log(bookName);
+    playlistId: '37i9dQZF1DWZwtERXCS82H', //can we have somethin as default to not have "page not"
+    imgURL: ''
   })
 
   const handleClick = e => {
@@ -22,7 +19,7 @@ function BookEntryCard() {
     .then(data => data.json())
     .then(data => {
       console.log(data.playlistId);
-      setCardState({...cardState, playlistId: data.playlistId})
+      setCardState({...cardState, playlistId: data.playlistId, imgURL: data.imageURL})
     });
   }
 
@@ -34,7 +31,7 @@ function BookEntryCard() {
     <div className='bookEntry' class=' m-10 '>
     <input class='text-slate-900 pl-5 w-10/12 h-10 my-10 rounded-sm' type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
     <button class='h-10 bg-primary text-black w-2/12 rounded-sm' onClick={handleClick}>Send</button>
-    <PlayerCard playlistId={cardState.playlistId} />
+    <PlayerCard playlistId={cardState.playlistId} imageURL={cardState.imgURL} />
     </div>
   )
 }

@@ -15,15 +15,17 @@ controller.getTitle = async (req,res,next) => {
   await fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&key=AIzaSyCXUjqCkxkBUW53n9BRZdQpzmtEb6BwYIk`)
     .then(response => response.json())
     .then(result => {
-      //console.log('bookinfo', result.items[0].volumeInfo.categories);
+        console.log('bookinfo', result.items[0].volumeInfo.imageLinks.thumbnail);
         //res.locals.bookInfo = result.items[0].volumeInfo.categories[0]
+        res.locals.image = result.items[0].volumeInfo.imageLinks.thumbnail
         res.locals.books = result.items[0].volumeInfo.description.split(' ').filter(word => word.length > 3);
-        return next()
+        // res.locals.image = result 
+      return next()
       }
     )}
 
   controller.createPlaylist = async (req, res, next) => {
-    const token = 'BQBGQEQOMmEoWV8gt6pa7tyTSwwUzAshZaRTL4MXyB9hX6guNjI7M1WGiT38b8hE1DZWxd7ENzPKmxFOyev9tac34abRGc6lIPRP6UpZtEIcS5QqljrIcdEdLcwpF0Y1ZzNhXFH0EIWGgIc11ByICJ93uJplK6BvxNbQyQ1coLSn5SxVLP9vO0sHjdMn4hos3Vyz71qr3WE5y9vEr00EmpV0lLws4EdbOJ0CdW4hDHiwQlP7h_pht0HnnUbQvg';
+    const token = 'BQBLGZnzKaDzsewShdTytejgHRTu1kDY4PA3hqnSg_lYx6rXpCPLOSYUY9Yw2qHDLw2MywPZLEZnerZZLoEtcT9LE-986AxteOjScNFVcAoSU-zGSaGpKNOQZ61Xj5uu4pcMhKBXpwPd8QOpennRTKZkZ68l6cvkH2XwiX6JKNMr9wXd5z6bKrnh6vy0KxiPabY9RejLtNVAQ_yNlFXNpN2-UeVQdXZvmeO9Oednkt-pukMs2FMnIVVYosJ25A';
     res.locals.token = token;
     await fetch(`https://api.spotify.com/v1/users/${'dingleboss'}/playlists`, {
       method: 'POST',
@@ -89,7 +91,7 @@ controller.getTitle = async (req,res,next) => {
 controller.saveToDB = (req, res, next) => {
   History.create({ title: res.locals.title, playlistId: res.locals.playlistId })
     .then(data => {
-      console.log(data);
+      //console.log(data);
       return next();
     })
     .catch(err => {
@@ -103,7 +105,7 @@ controller.saveToDB = (req, res, next) => {
 controller.sendDataBackToFront = (req, res, next) => {
   History.find()
     .then(data => {
-      console.log(data)
+      //console.log(data)
       res.locals.fromDB = data
       return next()
      })
