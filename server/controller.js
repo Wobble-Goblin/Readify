@@ -15,51 +15,23 @@ controller.getTitle = async (req,res,next) => {
   await fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&key=AIzaSyCXUjqCkxkBUW53n9BRZdQpzmtEb6BwYIk`)
     .then(response => response.json())
     .then(result => {
-        console.log('bookinfo', result.items[0].volumeInfo.title, result.items[0].volumeInfo.description.split(' ').filter(word => word.length > 3));
-        res.locals.books = result.items[0].volumeInfo.description.split(' ').filter(word => word.length > 3);
+      //console.log('bookinfo', result.items[0].volumeInfo.categories);
+        res.locals.bookInfo = result.items[0].volumeInfo.categories[0]
+        // res.locals.books = result.items[0].volumeInfo.description.split(' ').filter(word => word.length > 4);
         return next()
       }
     )}
 
-//SPOTIFY API GET TOKEN
-// controller.getToken = async (req,res,next) => {
-//   // get-token creating an access token
-//   const client_id = '919322e8de7f4fb299a489a332012dc6'; // Your client id
-//   const client_secret = '93cf2067ac524ef38dde1cb09d21394a'; // Your secret
 
-//   try { 
-//     const result = await fetch('https://accounts.spotify.com/api/token', { 
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//     body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
-//   })
-//   const data = await result.json();
-//     res.locals.token = data.access_token;
-//     console.log('token', res.locals.token)
-//   return next()
-//   } catch (err) {
-//     console.log("Error in creating location:", JSON.stringify(err));
-//     return next("Error:" + JSON.stringify(err));
-//   }
-//  }
+//SEARCH PLAYLIST ACCORDING TO BOOK DESCRIPTION
+controller.search = async ( req, res, next) => {
+  const { bookInfo } = res.locals
+  //console.log('bookinfo??',res.locals.bookInfo)
+  let token = res.locals.token
+  //console.log("title", req.body.title)
+  //console.log('token from getGenre controller',token)
+  //console.log(req.body.title, bookInfo)
 
-// controller.getToken = async(req, res, next) => {
-//   var scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
-//   const params = new URLSearchParams();
-//   params.append('response_type', 'code');
-//   params.append('client_id', '919322e8de7f4fb299a489a332012dc6'); 
-//   params.append('redirect_uri', 'http://localhost:3000/callback') 
-//   params.append('scope', scope); // spotify requires URL encoded, not json 
-
-//   //var state = generateRandomString(16);
-//   res.status(301).header({'Access-Control-Allow-Origin': 'http://localhost:3000', 'mode': 'no-cors'}).redirect('https://accounts.spotify.com/authorize?' + params.toString()) // 301 is HTTP code for redirect, the params get put into the string
-//   }
-
-
-
-//CREATE PLAYLIST
 
  controller.createPlaylist = async (req,res,next) => {
   const token = 'BQAHZElU55WscpuU59m8O9NBU5WTtPrVlk3QYJ481yIOkvDw5feVqTMdm-sZpH42xefdGUqpZBGwSqPPaUQjeBuLp9sAaMUmCIlzSRd66wF_uDbx562bg2_LkZZsmqfs-_Ez8ERK_hj_uO1j4eKqBJ5c26iU32IGTgq6MzLDH3HkVvGDy4JfK2xao5VxPexOzRcPiZhaDxdp9P2fwSoqZHwiXrYmaoJdOpvRPT5qzRlOcSCxT2sd2m6Lhu6c_Q';
@@ -83,6 +55,7 @@ controller.getTitle = async (req,res,next) => {
         return next()
       }
     )}
+
 
  controller.getRecommendations = async (req, res, next) => {
   const artistSeed = '4NHQUGzhtTLFvgF5SZesLK';

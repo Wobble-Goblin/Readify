@@ -6,7 +6,9 @@ module.exports = {
   darmMode: "media",
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        primary: '#996886'
+      },
     },
   },
   variants: {
