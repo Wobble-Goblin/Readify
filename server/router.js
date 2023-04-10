@@ -20,6 +20,7 @@ controller.getTitle,
 controller.createPlaylist,
 controller.getRecommendations,
 controller.addTracks,
+controller.saveToDB,
 (req,res) => {
   const playlistId = res.locals.playlistId;
   res.status(200).send({playlistId: playlistId})

@@ -1,6 +1,6 @@
 const fetch = require ('node-fetch');
 const { Mongoose, model } = require('mongoose');
-const models = require('./model');
+const { History } = require('./model');
 const ObjectId = require('mongodb').ObjectId;
 const { Buffer } = require ('buffer');
 
@@ -23,7 +23,8 @@ controller.getTitle = async (req,res,next) => {
     )}
 
   controller.createPlaylist = async (req, res, next) => {
-    const token = 'BQCiAnvwzirm2oLx5MH_SeCZgMj4S2A3pnn4QHRW-ASFYHNUx2BxrF7N1c6NhCgvDAJZUwqnmSI-tHN80CCx_gBeKdx8gq3FFiCtciSRR2zAueZeGlpKQvurX5dXBnYkM1J9bd3oLQYgeqaZS89e0B92EIi8pJXxuww-SKhDsw2XejF504nIlB__Jgx-Jretw8f7AGE8ZWiV_Su8sJmKqbAAYvtn91Maa1gr4SyoMzNBNssN9twMXAW-sNIlVg';
+    const token = 'BQBGQEQOMmEoWV8gt6pa7tyTSwwUzAshZaRTL4MXyB9hX6guNjI7M1WGiT38b8hE1DZWxd7ENzPKmxFOyev9tac34abRGc6lIPRP6UpZtEIcS5QqljrIcdEdLcwpF0Y1ZzNhXFH0EIWGgIc11ByICJ93uJplK6BvxNbQyQ1coLSn5SxVLP9vO0sHjdMn4hos3Vyz71qr3WE5y9vEr00EmpV0lLws4EdbOJ0CdW4hDHiwQlP7h_pht0HnnUbQvg';
+    res.locals.token = token;
     await fetch(`https://api.spotify.com/v1/users/${'dingleboss'}/playlists`, {
       method: 'POST',
       headers: {
@@ -58,7 +59,7 @@ controller.getTitle = async (req,res,next) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer BQCiAnvwzirm2oLx5MH_SeCZgMj4S2A3pnn4QHRW-ASFYHNUx2BxrF7N1c6NhCgvDAJZUwqnmSI-tHN80CCx_gBeKdx8gq3FFiCtciSRR2zAueZeGlpKQvurX5dXBnYkM1J9bd3oLQYgeqaZS89e0B92EIi8pJXxuww-SKhDsw2XejF504nIlB__Jgx-Jretw8f7AGE8ZWiV_Su8sJmKqbAAYvtn91Maa1gr4SyoMzNBNssN9twMXAW-sNIlVg'
+        'Authorization': `Bearer ${res.locals.token}`
       }
     })
       .then((data) => data.json())
@@ -70,12 +71,11 @@ controller.getTitle = async (req,res,next) => {
   }
 
   controller.addTracks = async (req, res, next) => {
-    const token = 'BQCiAnvwzirm2oLx5MH_SeCZgMj4S2A3pnn4QHRW-ASFYHNUx2BxrF7N1c6NhCgvDAJZUwqnmSI-tHN80CCx_gBeKdx8gq3FFiCtciSRR2zAueZeGlpKQvurX5dXBnYkM1J9bd3oLQYgeqaZS89e0B92EIi8pJXxuww-SKhDsw2XejF504nIlB__Jgx-Jretw8f7AGE8ZWiV_Su8sJmKqbAAYvtn91Maa1gr4SyoMzNBNssN9twMXAW-sNIlVg';
     await fetch(`https://api.spotify.com/v1/playlists/${res.locals.playlistId}/tracks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${res.locals.token}`,
       },
       body: JSON.stringify({
         uris: res.locals.tracks
@@ -85,10 +85,35 @@ controller.getTitle = async (req,res,next) => {
   }
 
 
-//ADD SONGS
-//  controller.addSongs = async (req,res,next) => {
-
-
+//SAVE title and playlist for tracks into DB
+controller.saveToDB = (req, res, next) => {
+  History.create({ title: res.locals.title, playlistId: res.locals.playlistId })
+    .then(data => {
+      console.log(data);
+      return next();
+    })
+    .catch(err => {
+      return next({
+      log: `controller.saveToDB: ERROR: ${err}`,
+      message: { err: 'Error occurred in controller.saveToDB. Check server logs for more details.' }
+      })  
+     })
+}
+ 
+controller.sendDataBackToFront = (req, res, next) => {
+  History.find()
+    .then(data => {
+      console.log(data)
+      res.locals.fromDB = data
+      return next()
+     })
+    .catch(err => {
+      return next({
+      log: `controller.sendDataBackToFront: ERROR: ${err}`,
+      message: { err: 'Error occurred in controller.sendDataBackToFront. Check server logs for more details.' }
+      })  
+     })
+ }
 
 
 module.exports = controller; 
