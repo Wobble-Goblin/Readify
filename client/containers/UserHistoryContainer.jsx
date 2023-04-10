@@ -30,7 +30,7 @@ function UserHistoryContainer(){
 
     return(
         <div className='UserHistoryContainer'>
-            <h2>Previous Playlists</h2>    
+            <h2 class='mt-20 mb-2 text-center text-3xl'>Previous Playlists</h2>    
             {historyItemArray}
         </div>
     )

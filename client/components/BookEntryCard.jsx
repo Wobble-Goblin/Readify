@@ -23,9 +23,9 @@ function BookEntryCard() {
   }
 
   return (
-    <div className='bookEntry'>
-    <input type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
-    <button onClick={handleClick}>Send</button>
+    <div className='bookEntry' class=' m-10 '>
+    <input class='text-slate-900 pl-10 w-10/12 h-10 my-10 rounded-sm' type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
+    <button class='h-10 bg-primary text-black w-2/12 rounded-sm' onClick={handleClick}>Send</button>
     <PlayerCard />
     </div>
   )
