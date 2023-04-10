@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import PlayerCard from "./PlayerCard";
 
 function BookEntryCard() {
-  const [bookName, setBookName] = useState('')
+  const [cardState, setCardState] = useState({
+    bookName: '',
+    playlistId: ''
+  })
 
   useEffect(() => {
     //console.log(bookName);
@@ -13,20 +16,25 @@ function BookEntryCard() {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        title: bookName,
+        title: cardState.bookName,
       })
+    })
+    .then(data => data.json())
+    .then(data => {
+      console.log(data.playlistId);
+      setCardState({...cardState, playlistId: data.playlistId})
     });
   }
 
   const handleOnChange = e => {
-    setBookName(e.target.value);
+    setCardState({...cardState, bookName: e.target.value});
   }
 
   return (
     <div className='bookEntry'>
     <input type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
     <button onClick={handleClick}>Send</button>
-    <PlayerCard />
+      <PlayerCard playlistId={cardState.playlistId} />
     </div>
   )
 }
