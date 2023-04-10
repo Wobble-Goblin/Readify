@@ -1,14 +1,12 @@
 module.exports = {
-  content: ["./client/**/*.html", "./client/**/*.{js,jsx,ts,tsx}",
-    "./client/*.html", "./client/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./client/**/*.html", "./client/**/*.{js,jsx,ts,tsx}",
+    //"./client/*.html", "./client/*.{js,jsx,ts,tsx}"
+  ],
+  darmMode: "media",
   theme: {
     extend: {
-      colors: {
-        transparent: "transparent",
-        current: "currentColor",
-        "light-grey": "#E5EEE5",
-        purple: "#7652C6",
-      },
+      colors: {},
     },
   },
   variants: {
