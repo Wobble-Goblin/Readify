@@ -7,16 +7,19 @@
   margin: 0;
 }
 
-body {
+/* body {
     background-color: black;
     color: white;
-}
+} */
+
+
 
 .app {
     min-width: 500px;
     max-width:1000px;
     margin:auto;
 }
+
 
 /* header start */
 

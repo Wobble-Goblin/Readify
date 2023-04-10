@@ -1,8 +1,13 @@
 module.exports = {
-  purge: ['./dist/*.html'],
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "./client/**/*.html", "./client/**/*.{js,jsx,ts,tsx}",
+    //"./client/*.html", "./client/*.{js,jsx,ts,tsx}"
+  ],
+  darmMode: "media",
   theme: {
-    extend: {},
+    extend: {
+      colors: {},
+    },
   },
   variants: {
     extend: {},
