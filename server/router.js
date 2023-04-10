@@ -23,7 +23,8 @@ controller.addTracks,
 controller.saveToDB,
 (req,res) => {
   const playlistId = res.locals.playlistId;
-  res.status(200).send({playlistId: playlistId})
+  const imageURL = res.locals.image;
+  res.status(200).send({playlistId: playlistId, imageURL: imageURL})
 })
 
 // router.get('/login', function(req, res) {

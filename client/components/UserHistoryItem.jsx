@@ -14,7 +14,8 @@ function UserHistoryItem({ bookTitle, playlistId}){
                  {/* <div className = 'isInstrumental'><span class='font-bold mr-3'>Instrumental: </span>{props.isInstrumental}</div>
                 <div className = 'playlistLength'> <span class='font-bold mr-3'>Playlist Length:</span>{props.playlistLength}</div> */}
                 {/* </div> */}
-                <div className='playButton' class='self-center bg-primary ml-10 text-white rounded-md py-1 px-10'>PLAY ▷</div>
+                <div className='playButton' id={playlistId} class='self-center bg-primary ml-10 text-white rounded-md py-1 px-10'>PLAY ▷</div>
+
                 {/* this button should bring back playlist */}
 
 
