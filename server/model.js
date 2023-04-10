@@ -8,18 +8,40 @@
 
 
 const mongoose = require('mongoose');
+//const ObjectId = require('mongodb').ObjectId;
 
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  clientID: { type: String, required: true },
-  secretID: { type: String, required: true },
-  token: {type: String},
+  userName: { type: String, required: true },
+  token: { type: String },
+  //title
+  //playlist id : []
 });
 
-const user = mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
+
+// SCHEMA FOR HISTORY
+const historySchema = new Schema({
+  title: {type:String, required:true},
+  playlistId : String
+})
+
+const History = mongoose.model('History',historySchema)
+
 // You must export your model through module.exports
 // The collection name should be 'student'
 module.exports = {
-  user
+  User,
+  History
 };
+
+// const locationsSchema = new Schema({
+//   name: String,
+//   reviews: [
+//     {
+//       type: Schema.Types.ObjectId,
+//       ref: 'reviews'
+//     }
+//   ] 
+// });

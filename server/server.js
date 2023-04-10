@@ -3,6 +3,7 @@ const fs = require('file-system')
 const express = require('express');
 const cors = require('cors');
 const querystring = require('querystring')
+const controller = require('./controller')
 
 const app = express();
 
@@ -45,6 +46,13 @@ app.get('/login', function(req, res) {
   //var state = generateRandomString(16);
   res.status(301).redirect('https://accounts.spotify.com/authorize?' + params.toString()) // 301 is HTTP code for redirect, the params get put into the string
 });
+
+app.get('/history',
+controller.sendDataBackToFront,
+(req, res) => {
+  const historyData = res.locals.fromDB;
+  res.status(200).send(historyData)
+})
 
 app.use('/api', router);
 

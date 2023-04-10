@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import UserHistoryItem from '../components/UserHistoryItem';
 
 function UserHistoryContainer(){
@@ -7,12 +7,32 @@ function UserHistoryContainer(){
         // this will change depending on what we actually take in, can also restruture the objects
         historyItems: 
         [
-            {bookTitle: 'Das\'s Animals Gang', author: 'Matteo D.', isInstrumental: 'Instrumental Only', playlistLength: '4+ Hours'}, 
-            {bookTitle: 'Dylan is a RegEx Master',  author: 'Jasmine N.', isInstrumental: 'All', playlistLength: '< 1 Hour'},
-            {bookTitle: 'Book3',  author: 'author three', isInstrumental: 'Instrumental Only', playlistLength: '< 1 Hour'},
-            {bookTitle: 'Book4',  author: 'Author four', isInstrumental: 'All', playlistLength: '2-4 hours'}
+           
         ]
     })
+
+
+    useEffect(()=> {
+        fetch('/history')
+        .then(response => response.json())
+        .then((data)=>{
+            console.log(data);
+            let historyArr = []
+            data.forEach(x=>{
+                const histObj = {
+                    bookTitle: x.title,
+                    playlistId: x.playlistId
+                }
+                historyArr.push(histObj)
+            })
+
+            setHistory(oldHistory => {
+                const newHistory = {historyItems: historyArr}
+                return newHistory
+            })
+        })
+    }, [])
+
 
     // console.log(history.historyItems)
     const historyItemArray = []
@@ -20,10 +40,12 @@ function UserHistoryContainer(){
         historyItemArray.push(
             <UserHistoryItem 
                 bookTitle={x.bookTitle}
-                author={x.author}
-                isInstrumental={x.isInstrumental}
-                playlistLength={x.playlistLength}
-                key={`history-item-${i}`}>
+                // playlistId={history.playlistId}
+                // author={x.author}
+                // isInstrumental={x.isInstrumental}
+                // playlistLength={x.playlistLength}
+                key={`history-item-${i}`}
+                >
             </UserHistoryItem>
         )
     })

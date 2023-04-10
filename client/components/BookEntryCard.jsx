@@ -4,7 +4,7 @@ import PlayerCard from "./PlayerCard";
 function BookEntryCard() {
   const [cardState, setCardState] = useState({
     bookName: '',
-    playlistId: ''
+    playlistId: '' //can we have somethin as default to not have "page not"
   })
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function BookEntryCard() {
 
   return (
     <div className='bookEntry' class=' m-10 '>
-    <input class='text-slate-900 pl-10 w-10/12 h-10 my-10 rounded-sm' type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
+    <input class='text-slate-900 pl-5 w-10/12 h-10 my-10 rounded-sm' type="text" placeholder="Enter Book Title" onChange={handleOnChange}></input>
     <button class='h-10 bg-primary text-black w-2/12 rounded-sm' onClick={handleClick}>Send</button>
     <PlayerCard playlistId={cardState.playlistId} />
     </div>
