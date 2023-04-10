@@ -32,7 +32,6 @@ body {
 }
 /* header end */
 
-
 /* book entry start */
 
 .bookEntry {
@@ -60,23 +59,6 @@ body {
 
 
 
-/* user history start */
-
-/* now accomplished by class attribute in the className UserHistoryItem */
- .UserHistoryItem {
-    /* display:flex;
-    flex-direction: row;
-    justify-content: space-between;  */
-    /* margin:10px; */
-    /* border: 1px solid #4e3d48; */
-    /* width:300px; */
- }
-
-.UserHistoryContainer h2 {
-    /* margin:30px 0 20px;
-    text-align: center;
-    font-size: 30px; */
-}
 
  .left {
     font-size: 18px;
@@ -103,3 +85,5 @@ body {
     background-color: #996886;
     border-radius: 10px;
  }
+
+ 
