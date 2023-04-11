@@ -27,36 +27,38 @@ module.exports = {
       },
       {
         test: /\.css$/i,
+        include: path.resolve(__dirname, 'client'),
         use: [
-          'style-loader', 'css-loader', 'sass-loader'
+          'style-loader', 'css-loader', 'postcss-loader'
         ],
       },
-    //   {
-    //     test: /\.png|svg|jpg|gif$/,
-    //     use: [
-    //         'file-loader'
-    //     ],
-    //  }, 
-    // {
-    //     test: /\.png|svg|jpg|gif$//,
-    //     type: 'asset/resource'
-    //   }
+      //   {
+      //     test: /\.png|svg|jpg|gif$/,
+      //     use: [
+      //         'file-loader'
+      //     ],
+      //  }, 
+      // {
+      //     test: /\.png|svg|jpg|gif$//,
+      //     type: 'asset/resource'
+      //   }
     ]
   },
   devServer: {
     static: [
       path.join(__dirname, 'client')
-    ]
+    ],
 
      // proxy setting to be included
-    //  proxy: {
-    //     '/api/**': {
-    //         target: 'http://localhost:3000/',
-    //         secure: false,
-    //       },
-    //   },
-    // // fallback to root for other urls
-    // historyApiFallback: true,
+     proxy: {
+        '/api/**': {
+            target: 'http://localhost:3000/',
+            secure: false,
+          },
+      },
+    // fallback to root for other urls
+    historyApiFallback: true,
+
   },
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
